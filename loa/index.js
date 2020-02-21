@@ -9,7 +9,7 @@ const qs = require("qs");
 const porting = express();
 porting.use(cors());
 
-porting.use(bodyParser.json({ limit: "10mb" }));
+porting.use(bodyParser.json({ limit: "8mb" }));
 porting.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 porting.use("/", (req, res, next) => {
