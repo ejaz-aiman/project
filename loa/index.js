@@ -16,7 +16,11 @@ porting.use("/", (req, res, next) => {
   if (req._parsedUrl.search) {
     req.query = qs.parse(req._parsedUrl.search.replace("?", ""), { depth: 10 });
   }
-
+  // req.event = {
+  //   requestContext: {
+  //     authorizer: { principalId: process.env.PRINCIPAL_ID || "259437004", role: 'Admin' }
+  //   }
+  // };
   next();
 });
 
@@ -32,4 +36,4 @@ exports.handler = serverless(porting, {
     req.context = context;
   }
 });
-porting.listen(3000);
+// porting.listen(3000);

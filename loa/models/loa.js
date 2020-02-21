@@ -8,10 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       signature_name: DataTypes.STRING,
       signature_font_style: DataTypes.STRING,
       is_agree: DataTypes.BOOLEAN,
-      is_signed: DataTypes.BOOLEAN
+      is_signed: DataTypes.BOOLEAN,
+      currentUserId: DataTypes.STRING
     },
     {
-      timestamps: true
+      timestamps: true,
+      freezeTableName : true
     }
   );
 
