@@ -11,7 +11,7 @@ var router = express.Router();
 
 router.get('/loa',getLoa);
 // router.post('/loa',createLoa);
-// router.delete('/loa',deleteLoa);
+router.delete('/loa',deleteLoa);
 // router.get('/loa/:id', updateLoa);
 // router.put('/loa/:id',resetLoa);
 
