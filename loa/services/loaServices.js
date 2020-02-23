@@ -5,7 +5,7 @@ const { loa: Loa } = require("../models");
 const errorCodes = require("../utils/errorCodes");
 const { roles } = require('../utils/constants');
 module.exports = {
-  get: async (currentUserId, role) => {
+  get: async ({currentUserId, role}) => {
     let where = {};
     if (role != roles.ADMIN) {
       where = { currentUserId }
@@ -13,7 +13,7 @@ module.exports = {
     let loa = await Loa.findAll({
       where
     });
-    console.log(loa)
+
     if (!loa.length) { throw { message: 'Not found', statusCode: 404 } }
     loa = loa.map(item => item.dataValues);
     return {
@@ -41,5 +41,24 @@ module.exports = {
       errors: [],
       statusCode: 200
     }
-  }
+  },
+  reset: async ({currentUserId, role, id}) => {
+    if (!id) throw { message: 'Id required.', statusCode: 400 }
+    const loa = await Loa.findOne({
+      where : {id,currentUserId}
+    })
+    if(!loa) throw { message: 'Not found.', statusCode: 404 }
+    await Loa.update({
+      signature_name : null,
+      signature_font_style : null,
+      is_agree: null,
+      is_signed: null
+    },
+    {where : {id,currentUserId}})
+    return {
+      message: 'Success',
+      errors: [],
+      statusCode: 200
+    }
+  },
 }
