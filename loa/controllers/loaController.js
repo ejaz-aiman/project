@@ -1,6 +1,6 @@
 const { sendFailureResponse, response } = require("../utils/utils");
 
-const { get, remove } = require("../services/loaServices");
+const { get, remove, create, update } = require("../services/loaServices");
 module.exports = {
   getLoa: async (req, res) => {
     try {
@@ -13,7 +13,7 @@ module.exports = {
         message,
         errors,
         name: 'Loa',
-        value: loa,
+        value: {loa},
         count
       })
     } catch (error) {
@@ -46,5 +46,49 @@ module.exports = {
         statusCode: error.statusCode || 500
       })
     }
-  }
+  },
+    createLoa: async (req, res) => {
+    try {
+      const currentUserId = req.event.requestContext.authorizer.principalId;
+      const role = req.event.requestContext.authorizer.role;
+      let { errors, createdLoa, statusCode, message } = await create({ currentUserId, role, loa: req.body });
+      response({
+        res,
+        statusCode,
+        message,
+        errors,
+        name: 'loa',
+        value: createdLoa
+      })
+    } catch (error) {
+      console.log(error)
+      return sendFailureResponse({
+        res,
+        message: error.message || 'Internal server error.',
+        statusCode: error.statusCode || 500
+      })
+    }
+  },
+  updateLoa: async (req, res) => {
+    try {
+      const currentUserId = req.event.requestContext.authorizer.principalId;
+      const role = req.event.requestContext.authorizer.role;
+      let { errors, updatedLoa, statusCode, message } = await update({ currentUserId, role, loa: req.body,id : req.params.id });
+      response({
+        res,
+        statusCode,
+        message,
+        errors,
+        name: 'updatedLoa',
+        value: updatedLoa
+      })
+    } catch (error) {
+      console.log(error)
+      return sendFailureResponse({
+        res,
+        message: error.message || 'Internal server error.',
+        statusCode: error.statusCode || 500
+      })
+    }
+  },
 };

@@ -18,7 +18,7 @@ porting.use("/", (req, res, next) => {
   }
   // req.event = {
   //   requestContext: {
-  //     authorizer: { principalId: process.env.PRINCIPAL_ID || "259437004", role: 'Admin' }
+  //     authorizer: { principalId: process.env.PRINCIPAL_ID || "259437003", role: "User" }
   //   }
   // };
   next();
@@ -36,4 +36,4 @@ exports.handler = serverless(porting, {
     req.context = context;
   }
 });
-// porting.listen(3000);
+//  porting.listen(3000);

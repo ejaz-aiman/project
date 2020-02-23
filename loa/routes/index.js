@@ -10,9 +10,9 @@ const {
 var router = express.Router();
 
 router.get('/loa',getLoa);
-// router.post('/loa',createLoa);
+router.post('/loa',createLoa);
 router.delete('/loa',deleteLoa);
-// router.get('/loa/:id', updateLoa);
-// router.put('/loa/:id',resetLoa);
+router.put('/signloa/:id', updateLoa);
+// router.put('/resetloa/:id',resetLoa);
 
 module.exports = router;
