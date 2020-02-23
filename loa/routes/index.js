@@ -13,6 +13,6 @@ router.get('/loa',getLoa);
 router.post('/loa',createLoa);
 router.delete('/loa',deleteLoa);
 router.put('/signloa/:id', updateLoa);
-// router.put('/resetloa/:id',resetLoa);
+router.put('/resetloa/:id',resetLoa);
 
 module.exports = router;

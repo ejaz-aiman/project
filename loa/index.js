@@ -18,7 +18,7 @@ porting.use("/", (req, res, next) => {
   }
   // req.event = {
   //   requestContext: {
-  //     authorizer: { principalId: process.env.PRINCIPAL_ID || "259437003", role: "User" }
+  //     authorizer: { principalId: process.env.PRINCIPAL_ID || "259437003", role: 'User' }
   //   }
   // };
   next();

@@ -94,4 +94,23 @@ module.exports = {
       statusCode: 200
     }
   },
+  reset: async ({ currentUserId, role, id }) => {
+    if (!id) throw { message: 'Id required.', statusCode: 400 }
+    const loa = await Loa.findOne({
+      where: { id, currentUserId }
+    })
+    if (!loa) throw { message: 'Not found.', statusCode: 404 }
+    await Loa.update({
+      signature_name: null,
+      signature_font_style: null,
+      is_agree: null,
+      is_signed: null
+    },
+      { where: { id, currentUserId } })
+    return {
+      message: 'Success',
+      errors: [],
+      statusCode: 200
+    }
+  }
 }

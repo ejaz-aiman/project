@@ -1,6 +1,7 @@
 const { sendFailureResponse, response } = require("../utils/utils");
 
-const { get, remove, create, update } = require("../services/loaServices");
+const { get, remove, create, update,reset } = require("../services/loaServices");
+
 module.exports = {
   getLoa: async (req, res) => {
     try {
@@ -59,6 +60,26 @@ module.exports = {
         errors,
         name: 'loa',
         value: createdLoa
+      })
+    } catch (error) {
+      console.log(error)
+      return sendFailureResponse({
+        res,
+        message: error.message || 'Internal server error.',
+        statusCode: error.statusCode || 500
+      })
+    }
+  },
+  resetLoa: async (req, res) => {
+    try {
+      const currentUserId = req.event.requestContext.authorizer.principalId;
+      const role = req.event.requestContext.authorizer.role;
+      let { errors, statusCode, message} = await reset({currentUserId, role,id : req.params.id});
+      response({
+        res,
+        statusCode,
+        errors,
+        message
       })
     } catch (error) {
       console.log(error)
